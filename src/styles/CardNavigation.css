@@ -1,0 +1,55 @@
+.clickable-box {
+  width: 300px;
+  height: 250px;
+  margin: 10px;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Adjusts alignment for image and text */
+  align-items: center;
+  overflow: hidden;
+}
+
+.clickable-box:hover {
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.image-container {
+  width: 100%;
+  height: 80%;
+  overflow: hidden;
+}
+
+.box-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills its container */
+}
+
+.text-container {
+  width: 100%;
+  height: 20%;
+  padding: 5px;
+  background-color: #fff; /* Makes the text container visually distinct */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Ensures header and text are spaced properly */
+}
+
+.box-header {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+}
+
+.box-text {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+}
