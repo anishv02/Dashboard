@@ -1,46 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import axios from "axios";
 import "../styles/BillGeneration.css";
 
 const BillGenerate = () => {
   const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const productList = [
-    { name: "Peanut Butter", price: 120 },
-    { name: "Rice", price: 50 },
-    { name: "Milk", price: 30 },
-    { name: "Bread", price: 40 },
-    { name: "Sugar", price: 60 },
-    { name: "Eggs", price: 70 },
-    { name: "Chicken", price: 200 },
-    { name: "Fish", price: 250 },
-    { name: "Flour", price: 45 },
-    { name: "Oil", price: 180 },
-    { name: "Salt", price: 20 },
-    { name: "Coffee", price: 150 },
-    { name: "Tea", price: 100 },
-    { name: "Butter", price: 90 },
-    { name: "Cheese", price: 120 },
-    { name: "Juice", price: 50 },
-    { name: "Chocolate", price: 200 },
-    { name: "Ice Cream", price: 150 },
-    { name: "Biscuits", price: 40 },
-    { name: "Chips", price: 50 },
-    { name: "Apples", price: 120 },
-    { name: "Bananas", price: 60 },
-    { name: "Oranges", price: 80 },
-    { name: "Potatoes", price: 30 },
-    { name: "Tomatoes", price: 40 },
-    { name: "Onions", price: 50 },
-    { name: "Carrots", price: 60 },
-    { name: "Lentils", price: 80 },
-    { name: "Pulses", price: 90 },
-    { name: "Corn Flakes", price: 130 },
-    { name: "Oats", price: 100 },
-  ];
+  // Fetch data from the API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("YOUR_API_ENDPOINT");
+        const formattedData = response.data.map((item) => ({
+          name: item.Item_Name,
+          price: item.Item_Price,
+        }));
+        setAllProducts(formattedData);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const addProduct = () => {
     if (!selectedProduct) return;
@@ -97,7 +82,7 @@ const BillGenerate = () => {
         <div className="grid-structure">
           <Autocomplete
             disablePortal
-            options={productList}
+            options={allProducts}
             getOptionLabel={(option) => option.name}
             onChange={(event, value) => setSelectedProduct(value)}
             inputValue={searchQuery}
